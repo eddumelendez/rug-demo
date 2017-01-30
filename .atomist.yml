@@ -1,0 +1,17 @@
+---
+kind: "operation"
+client: "rug-cli 0.21.0"
+editor:
+  name: "atomist-rugs.rug-editors.ConvertExistingProjectToRugArchiveWithGenerator"
+  group: "atomist-rugs"
+  artifact: "rug-editors"
+  version: "0.4.0"
+  origin:
+    repo: "https://github.com/atomist-rugs/rug-editors.git"
+    branch: "b0bf7a9c10d2c2c79a659f525b807d467cd197c0"
+    sha: "b0bf7a9"
+  parameters:
+    - "generator_name": "JUnit5Generator"
+    - "rug_archive_name": "junit5-rugs"
+    - "rug_archive_group_id": "eddumelendez"
+

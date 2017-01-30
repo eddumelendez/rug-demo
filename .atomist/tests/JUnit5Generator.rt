@@ -1,0 +1,13 @@
+scenario JUnit5Generator should create a new project based on this archive
+
+let project_name = "my-project-name"
+
+given
+  Empty
+
+when
+  /* Run the default generator */
+  JUnit5Generator
+
+then
+  NoChange
