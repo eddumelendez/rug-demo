@@ -1,0 +1,35 @@
+scenario Move tests from junit4 to junit5
+
+let resultFile = "ApplicationTests.java"
+
+given
+  ApplicationTests.java = """
+  package demo;
+
+  import org.junit.Test;
+  import org.junit.runner.RunWith;
+  import org.springframework.boot.test.context.SpringBootTest;
+  import org.springframework.test.context.junit4.SpringRunner;
+
+  @RunWith(SpringRunner.class)
+  @SpringBootTest
+  public class DemoRugApplicationTests {
+
+  	@Test
+  	public void contextLoads() {
+  	}
+
+  }
+  """
+
+when
+  AddJUnit5JavaFiles
+
+then
+  fileExists resultFile
+  and { !result.fileContains(resultFile, "org.junit.Test") }
+  and { !result.fileContains(resultFile, "org.junit.runner.RunWith") }
+  and { !result.fileContains(resultFile, "org.springframework.test.context.junit4.SpringRunner") }
+  and fileContains resultFile "import org.junit.jupiter.api.Test;"
+  and fileContains resultFile "import org.springframework.test.context.junit.jupiter.SpringExtension;"
+  and fileContains resultFile "@ExtendWith(value = SpringExtension.class)"

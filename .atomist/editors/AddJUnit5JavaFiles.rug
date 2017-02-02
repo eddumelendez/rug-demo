@@ -1,0 +1,17 @@
+@description "adds junit5 support"
+@tag "java"
+@tag "junit5"
+editor AddJUnit5JavaFiles
+
+with JavaType c when { c.name().endsWith("Tests") } begin
+  do removeAnnotation "org.junit.runner" "RunWith"
+
+  do removeImport "org.junit.Test"
+  do removeImport "org.junit.runner.RunWith"
+  do removeImport "org.springframework.test.context.junit4.SpringRunner"
+
+  do addImport "org.junit.jupiter.api.Test"
+  do addImport "org.springframework.test.context.junit.jupiter.SpringExtension"
+
+  do addAnnotation "org.junit.jupiter.api.extension" "ExtendWith(value = SpringExtension.class)"
+end
