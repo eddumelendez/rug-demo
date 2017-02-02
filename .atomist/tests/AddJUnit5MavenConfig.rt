@@ -1,0 +1,74 @@
+scenario Add JUnit5 dependency
+
+let junit5Dependency = """
+  <dependency>
+    <groupId>org.junit.jupiter</groupId>
+    <artifactId>junit-jupiter-api</artifactId>
+    <version>${junit.jupiter.version}</version>
+    <scope>test</scope>
+  </dependency>
+  """
+
+let resultFile = "pom.xml"
+
+given
+  pom.xml = """
+    <project>
+      <modelVersion>4.0.0</modelVersion>
+
+      <groupId>io.eddumelendez.boot</groupId>
+      <artifactId>spring-boot-sample-junit5</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+      <packaging>jar</packaging>
+
+      <name>spring-boot-junit5</name>
+      <description>Demo project for Spring Boot</description>
+
+      <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.0.BUILD-SNAPSHOT</version>
+        <relativePath/> <!-- lookup parent from repository -->
+      </parent>
+
+      <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+      </properties>
+
+      <dependencies>
+        <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-test</artifactId>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
+
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+          </plugin>
+        </plugins>
+      </build>
+
+    </project>
+    """
+
+when AddJUnit5MavenConfig
+
+then
+  fileExists resultFile
+    and fileContains resultFile "<junit.jupiter.version>5.0.0-M3</junit.jupiter.version>"
+    and fileContains resultFile "<junit.platform.version>1.0.0-M3</junit.platform.version>"
+    and fileContains resultFile "junit-jupiter-api"
+    and fileContains resultFile "maven-surefire-plugin"
+    and fileContains resultFile "junit-platform-surefire-provider"
+    and fileContains resultFile "junit-jupiter-engine"
